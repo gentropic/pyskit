@@ -122,6 +122,15 @@ dist
 # TernJS port file
 .tern-port
 
+# Private working docs — never commit
+CLAUDE.md
+ROADMAP.md
+spec_inbox/
+
+# Build outputs (kept out of source; present in published npm tarball)
+dist/
+
+
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 

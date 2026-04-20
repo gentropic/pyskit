@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>pyskit — example</title>
+<style>
+  body { font-family: ui-sans-serif, system-ui, sans-serif; max-width: 780px; margin: 2em auto; padding: 0 1em; }
+  h1, h2 { margin-top: 1.4em; }
+  hr { border: none; border-top: 1px solid #ddd; margin: 2em 0; }
+  button { padding: 0.4em 0.8em; font: inherit; cursor: pointer; }
+  input { padding: 0.3em 0.5em; font: inherit; }
+</style>
+<script src="../dist/pyskit.bundle.js"></script>
+
+<!-- Optional page-level config. Demonstrates the schema — this one doesn't
+     change default behavior (AIR is already the default) but shows the shape.
+     Uncomment the walker engine line to see walker errors across all blocks. -->
+<script type="pyskit-config">
+{
+  "engine": "air",
+  "packages": []
+}
+</script>
+</head>
+<body>
+
+<h1>pyskit — example</h1>
+<p>Python-flavored scripting in a plain HTML page, powered by <code>&lt;script type="adder"&gt;</code>.</p>
+
+<hr>
+
+<h2>hello world</h2>
+<script type="adder">
+  print("hello, pyskit")
+</script>
+
+<h2>arithmetic and comprehensions</h2>
+<script type="adder">
+  squares = [i * i for i in range(10)]
+  print("squares:", squares)
+  print("total:  ", sum(squares))
+</script>
+
+<h2>shared scope across blocks</h2>
+<script type="adder">
+  # define names here
+  import sys
+  name = "Arthur"
+
+  def greet(who):
+      return f"hello, {who}"
+</script>
+
+<script type="adder">
+  # ...use them in a later block
+  print(greet(name))
+  print("platform:", sys.platform)
+</script>
+
+<h2>DOM access via `document`</h2>
+<script type="adder">
+  el = document.createElement("canvas")
+  el.width = 300; el.height = 80
+  ctx = el.getContext("2d")
+  ctx.fillStyle = "#c89b3c"
+  ctx.fillRect(0, 0, 300, 80)
+  ctx.fillStyle = "#111"
+  ctx.font = "24px monospace"
+  ctx.fillText("drawn from adder", 20, 48)
+  display(el)
+</script>
+
+<h2>event attributes</h2>
+<button adder-click="on_click()">increment</button>
+<span id="counter-out">—</span>
+<script type="adder">
+  count = 0
+
+  def on_click():
+      global count
+      count = count + 1
+      document.getElementById("counter-out").textContent = str(count)
+</script>
+
+<h2>targeted output</h2>
+<div id="greeting"></div>
+<script type="adder" output="greeting">
+  print("this goes into the #greeting div above")
+</script>
+
+<h2>parse-time error</h2>
+<p>An intentionally bad block. The page continues past it.</p>
+<script type="adder" id="broken-block">
+  this is not valid adder syntax
+</script>
+
+<script type="adder">
+  # But this block still runs:
+  print("still alive after the broken block above")
+</script>
+
+<hr>
+<p><small>Open the browser console to see any warnings. <code>window.pyskit</code> is the JS API, available once the <code>pyskit:ready</code> event fires.</small></p>
+
+</body>
+</html>

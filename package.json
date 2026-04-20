@@ -1,0 +1,50 @@
+{
+  "name": "@gcu/pyskit",
+  "version": "0.1.0",
+  "description": "A thin DOM shim over @gcu/adder — `<script type=\"adder\">` for plain HTML pages. Python-flavored scripting with no build step, no WASM, and instant cold start.",
+  "type": "module",
+  "main": "src/pyskit.js",
+  "exports": {
+    ".": "./src/pyskit.js",
+    "./bundled": "./dist/pyskit.bundle.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "dist",
+    "LICENSE",
+    "README.md",
+    "SPEC.md"
+  ],
+  "scripts": {
+    "build": "node build.js",
+    "test": "node --no-warnings --test \"test/**/*.test.mjs\""
+  },
+  "dependencies": {
+    "@gcu/adder": "^0.2.1",
+    "@gcu/air": "^0.2.1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0"
+  },
+  "keywords": [
+    "python",
+    "adder",
+    "html",
+    "pyscript",
+    "scripting",
+    "browser",
+    "no-wasm",
+    "gcu"
+  ],
+  "license": "MIT",
+  "author": "Arthur Endlein Correia",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gentropic/pyskit.git"
+  },
+  "homepage": "https://github.com/gentropic/pyskit",
+  "bugs": {
+    "url": "https://github.com/gentropic/pyskit/issues"
+  }
+}
